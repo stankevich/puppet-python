@@ -28,11 +28,11 @@
 
 ### Data types
 
-* [`Python::Loglevel`](#pythonloglevel): A version type to match all valid loglevels for python
-* [`Python::Package::Ensure`](#pythonpackageensure): A version type to match all valid package ensures for python
-* [`Python::Provider`](#pythonprovider): A version type to match all valid provider for python
-* [`Python::Umask`](#pythonumask): A version type to match valid umask for python
-* [`Python::Version`](#pythonversion): A version type to match all valid versions for python
+* [`Python::Loglevel`](#pythonloglevel): Match all valid loglevels for python
+* [`Python::Package::Ensure`](#pythonpackageensure): Match all valid package ensures for python
+* [`Python::Provider`](#pythonprovider): Match all valid provider for python
+* [`Python::Umask`](#pythonumask): Match valid umask for python
+* [`Python::Version`](#pythonversion): Match all valid versions for python
 
 ## Classes
 
@@ -116,6 +116,14 @@ Desired installation state for the virtualenv package
 
 Default value: `$python::params::virtualenv`
 
+##### `venv`
+
+Data type: `Python::Package::Ensure`
+
+Desired installation state for the virtualenv package
+
+Default value: `$python::params::venv`
+
 ##### `gunicorn`
 
 Data type: `Python::Package::Ensure`
@@ -164,11 +172,17 @@ The default umask for invoked exec calls.
 
 Default value: ``undef``
 
+##### `manage_gunicorn`
+
+manage the state for package gunicorn
+
+Default value: `$python::params::manage_gunicorn`
+
 ##### `manage_python_package`
 
 Data type: `Boolean`
 
-
+manage the state for package python
 
 Default value: `$python::params::manage_python_package`
 
@@ -176,15 +190,23 @@ Default value: `$python::params::manage_python_package`
 
 Data type: `Boolean`
 
-
+manage the state for package virtualenv
 
 Default value: `$python::params::manage_virtualenv_package`
+
+##### `manage_venv_package`
+
+Data type: `Boolean`
+
+manage the state for package venv
+
+Default value: `$python::params::manage_venv_package`
 
 ##### `manage_pip_package`
 
 Data type: `Boolean`
 
-
+manage the state for package pip
 
 Default value: `$python::params::manage_pip_package`
 
@@ -1202,31 +1224,31 @@ Default value: ``undef``
 
 ### `Python::Loglevel`
 
-A version type to match all valid loglevels for python
+Match all valid loglevels for python
 
 Alias of `Enum['debug', 'info', 'warning', 'error', 'critical']`
 
 ### `Python::Package::Ensure`
 
-A version type to match all valid package ensures for python
+Match all valid package ensures for python
 
 Alias of `Enum['absent', 'present', 'latest']`
 
 ### `Python::Provider`
 
-A version type to match all valid provider for python
+Match all valid provider for python
 
 Alias of `Enum['pip', 'scl', 'rhscl', 'anaconda', '']`
 
 ### `Python::Umask`
 
-A version type to match valid umask for python
+Match valid umask for python
 
 Alias of `Pattern[/[0-7]{1,4}/]`
 
 ### `Python::Version`
 
-A version type to match all valid versions for python
+Match all valid versions for python
 
 Alias of `Pattern[/\A(python)?[0-9](\.?[0-9])*/, /\Apypy\Z/, /\Asystem\Z/, /\Arh-python[0-9]{2}(?:-python)?\Z/]`
 

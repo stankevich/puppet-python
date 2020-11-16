@@ -13,10 +13,12 @@ class python::params {
   $pip                         = 'present'
   $dev                         = 'absent'
   $virtualenv                  = 'absent'
+  $venv                        = 'absent'
   $gunicorn                    = 'absent'
   $manage_gunicorn             = true
   $manage_python_package       = true
   $manage_virtualenv_package   = true
+  $manage_venv_package         = true
   $manage_pip_package          = true
   $provider                    = undef
   $valid_versions              = undef
