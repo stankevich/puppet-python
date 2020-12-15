@@ -16,6 +16,7 @@ describe 'python', type: :class do
         it { is_expected.to contain_package('python') }
         it { is_expected.to contain_package('virtualenv') }
         it { is_expected.to contain_package('pip') }
+        it { is_expected.to contain_package('python-venv') }
       end
 
       context 'without managing things' do
@@ -23,7 +24,8 @@ describe 'python', type: :class do
           {
             manage_python_package: false,
             manage_virtualenv_package: false,
-            manage_pip_package: false
+            manage_pip_package: false,
+            manage_venv_package: false
           }
         end
 
@@ -31,6 +33,25 @@ describe 'python', type: :class do
         it { is_expected.not_to contain_package('python') }
         it { is_expected.not_to contain_package('virtualenv') }
         it { is_expected.not_to contain_package('pip') }
+        it { is_expected.not_to contain_package('python-venv') }
+      end
+
+      context 'with packages present' do
+        let :params do
+          {
+            manage_virtualenv_package: true,
+            manage_pip_package: true,
+            manage_venv_package: true,
+            pip: 'present',
+            virtualenv: 'present',
+            venv: 'present'
+          }
+        end
+
+        it { is_expected.to compile.with_all_deps }
+        it { is_expected.to contain_package('virtualenv').with(ensure: 'present') }
+        it { is_expected.to contain_package('pip').with(ensure: 'present') }
+        it { is_expected.to contain_package('python-venv').with(ensure: 'present') }
       end
 
       case facts[:os]['family']

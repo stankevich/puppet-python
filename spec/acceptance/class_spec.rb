@@ -24,6 +24,7 @@ describe 'python class' do
         pip        => 'present',
         dev        => 'present',
         virtualenv => 'present',
+        venv       => 'present',
       }
       EOS
 

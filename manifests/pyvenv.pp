@@ -43,14 +43,6 @@ define python::pyvenv (
     $python_version_parts      = split($python_version, '[.]')
     $normalized_python_version = sprintf('%s.%s', $python_version_parts[0], $python_version_parts[1])
 
-    # Debian splits the venv module into a seperate package
-    if ( $facts['os']['family'] == 'Debian') {
-      $python3_venv_package = "python${normalized_python_version}-venv"
-      ensure_packages($python3_venv_package)
-
-      Package[$python3_venv_package] -> File[$venv_dir]
-    }
-
     # pyvenv is deprecated since 3.6 and will be removed in 3.8
     if versioncmp($normalized_python_version, '3.6') >=0 {
       $virtualenv_cmd = "${python::exec_prefix}python${normalized_python_version} -m venv"
@@ -70,10 +62,11 @@ define python::pyvenv (
     }
 
     file { $venv_dir:
-      ensure => directory,
-      owner  => $owner,
-      group  => $group,
-      mode   => $mode,
+      ensure  => directory,
+      owner   => $owner,
+      group   => $group,
+      mode    => $mode,
+      require => Package['python-venv'],
     }
 
     $pip_cmd = "${python::exec_prefix}${venv_dir}/bin/pip"

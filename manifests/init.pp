@@ -12,12 +12,18 @@
 # @param pip Desired installation state for the python-pip package.
 # @param dev Desired installation state for the python-dev package.
 # @param virtualenv Desired installation state for the virtualenv package
+# @param venv Desired installation state for the virtualenv package
 # @param gunicorn Desired installation state for Gunicorn.
 # @param manage_gunicorn Allow Installation / Removal of Gunicorn.
 # @param provider What provider to use for installation of the packages, except gunicorn and Python itself.
 # @param use_epel to determine if the epel class is used.
 # @param manage_scl Whether to manage core SCL packages or not.
 # @param umask The default umask for invoked exec calls.
+# @param manage_gunicorn manage the state for package gunicorn
+# @param manage_python_package manage the state for package python
+# @param manage_virtualenv_package manage the state for package virtualenv
+# @param manage_venv_package manage the state for package venv
+# @param manage_pip_package manage the state for package pip
 #
 # @example install python from system python
 #   class { 'python':
@@ -41,10 +47,12 @@ class python (
   Python::Package::Ensure    $pip                         = $python::params::pip,
   Python::Package::Ensure    $dev                         = $python::params::dev,
   Python::Package::Ensure    $virtualenv                  = $python::params::virtualenv,
+  Python::Package::Ensure    $venv                        = $python::params::venv,
   Python::Package::Ensure    $gunicorn                    = $python::params::gunicorn,
   Boolean                    $manage_gunicorn             = $python::params::manage_gunicorn,
   Boolean                    $manage_python_package       = $python::params::manage_python_package,
   Boolean                    $manage_virtualenv_package   = $python::params::manage_virtualenv_package,
+  Boolean                    $manage_venv_package         = $python::params::manage_venv_package,
   Boolean                    $manage_pip_package          = $python::params::manage_pip_package,
   String[1]                  $gunicorn_package_name       = $python::params::gunicorn_package_name,
   Optional[Python::Provider] $provider                    = $python::params::provider,
