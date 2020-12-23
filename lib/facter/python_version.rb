@@ -2,7 +2,7 @@
 
 def get_python_version(executable)
   if Facter::Util::Resolution.which(executable) # rubocop:disable Style/GuardClause
-    results = Facter::Util::Resolution.exec("#{executable} -V 2>&1").match(%r{^.*(\d+\.\d+\.\d+\+?)$})
+    results = Facter::Util::Resolution.exec("#{executable} -V 2>&1").match(%r{^.*(\d+\.\d+\.\d+\+?(?:rc\d+)?)$})
     results[1] if results
   end
 end
