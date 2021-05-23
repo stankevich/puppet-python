@@ -33,7 +33,7 @@ class python::pip::bootstrap (
 
     if $version == 'pip3' {
       exec { 'bootstrap pip3':
-        command     => '/usr/bin/curl https://bootstrap.pypa.io/get-pip.py | python3',
+        command     => '/usr/bin/curl https://bootstrap.pypa.io/pip/get-pip.py | python3',
         environment => $environ,
         unless      => 'which pip3',
         path        => $python::params::pip_lookup_path,
@@ -50,7 +50,7 @@ class python::pip::bootstrap (
       }
     } else {
       exec { 'bootstrap pip':
-        command     => '/usr/bin/curl https://bootstrap.pypa.io/get-pip.py | python',
+        command     => '/usr/bin/curl https://bootstrap.pypa.io/pip/get-pip.py | python',
         environment => $environ,
         unless      => 'which pip',
         path        => $python::params::pip_lookup_path,
