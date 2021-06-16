@@ -18,8 +18,12 @@ describe 'python::pyvenv', type: :define do
         it { is_expected.to contain_file('/opt/env') }
         it { is_expected.to contain_exec('python_virtualenv_/opt/env').with_command('pyvenv-3.5 --clear  /opt/env && /opt/env/bin/pip --log /opt/env/pip.log install --upgrade pip && /opt/env/bin/pip --log /opt/env/pip.log install --upgrade setuptools') }
 
-        if %w[xenial bionic cosmic disco stretch buster].include?(facts[:lsbdistcodename])
+        if %w[xenial cosmic disco stretch].include?(facts[:lsbdistcodename])
           it { is_expected.to contain_package('python3.5-venv').that_comes_before('File[/opt/env]') }
+        end
+
+        if %w[bionic buster].include?(facts[:lsbdistcodename])
+          it { is_expected.to contain_package('python3-venv').that_comes_before('File[/opt/env]') }
         end
       end
 

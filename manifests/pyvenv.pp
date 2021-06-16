@@ -46,10 +46,17 @@ define python::pyvenv (
 
     # Debian splits the venv module into a seperate package
     if ( $facts['os']['family'] == 'Debian') {
-      $python3_venv_package = "python${normalized_python_version}-venv"
-      ensure_packages($python3_venv_package)
+      if $facts['os']['distro']['codename'] in ['buster','bionic'] {
+        $python3_venv_package = "python${$python_version_parts[0]}-venv"
+        ensure_packages($python3_venv_package)
 
-      Package[$python3_venv_package] -> File[$venv_dir]
+        Package[$python3_venv_package] -> File[$venv_dir]
+      } else {
+        $python3_venv_package = "python${normalized_python_version}-venv"
+        ensure_packages($python3_venv_package)
+
+        Package[$python3_venv_package] -> File[$venv_dir]
+      }
     }
 
     # pyvenv is deprecated since 3.6 and will be removed in 3.8
